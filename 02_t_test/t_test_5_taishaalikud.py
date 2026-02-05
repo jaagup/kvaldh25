@@ -14,5 +14,28 @@ print(t_arv("kalamaja"))
 arvud1=[t_arv(sona) for sona in lause1.lower().split()]
 print(arvud1)
 #Kuva ka teise teksti iga sõna täishäälikute arv, kontrolli pisteliselt
+arvud2=[t_arv(sona) for sona in lause2.lower().split()]
+print(arvud2)
 #Võrdle nende arvude aritmeetilisi keskmisi t-testiga
+print(ttest_ind(arvud1, arvud2))
 #Kuva kummagi arvujada aritmeetiline keskmine välja
+def keskmine(m):
+    return sum(m)/len(m)
+
+print(keskmine(arvud1), keskmine(arvud2))
+
+def t_osa(sona):
+     return len([t for t in sona if t in th])/len(sona)
+
+osakaalud1=[t_osa(sona) for sona in lause1.lower().split()]
+osakaalud2=[t_osa(sona) for sona in lause2.lower().split()]
+print(osakaalud1)
+print(keskmine(osakaalud1), keskmine(osakaalud2))
+#Leidke täishäälikute osakaalud ja nende keskmine hümni tekstis
+#Võrrelge t-testiga kahe teksti sõnade täishäälikute osakaale
+print(ttest_ind(osakaalud1, osakaalud2))
+
+
+import statsmodels.stats.api as sms
+cm = sms.CompareMeans(sms.DescrStatsW(osakaalud1), sms.DescrStatsW(osakaalud2))
+print(cm.tconfint_diff(usevar='unequal'))
